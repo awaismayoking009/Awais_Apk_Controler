@@ -3,36 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardian AI - Active</title>
+    <title>AM MVC - Next Gen Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0a0a0a; color: #00ffcc; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .glow-button {
-            width: 150px; height: 150px; border-radius: 50%; border: 2px solid #00ffcc;
-            background: transparent; color: #00ffcc; font-size: 20px; font-weight: bold;
-            box-shadow: 0 0 20px #00ffcc; cursor: pointer; transition: 0.5s;
-            display: flex; align-items: center; justify-content: center;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #1f1f1f; overflow: hidden; }
+        
+        /* لوگو اینیمیشن */
+        .logo-container { text-align: center; margin-bottom: 50px; animation: fadeIn 1.5s ease; }
+        .logo-container img { width: 120px; height: 120px; border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; }
+        .app-name { font-size: 32px; font-weight: 700; margin-top: 20px; letter-spacing: -1.5px; color: #000; }
+        .tagline { color: #757575; font-size: 14px; font-weight: 400; margin-top: 5px; }
+        
+        /* اسٹیٹس کارڈ */
+        .status-card { width: 85%; max-width: 350px; background: #fbfbfb; border-radius: 24px; padding: 25px; text-align: center; border: 1px solid #f0f0f0; transition: 0.5s; }
+        .status-dot { height: 12px; width: 12px; background-color: #d1d1d1; border-radius: 50%; display: inline-block; margin-right: 8px; }
+        .active-dot { background-color: #34a853; box-shadow: 0 0 15px rgba(52, 168, 83, 0.5); animation: pulse 2s infinite; }
+
+        /* بٹن ڈیزائن */
+        .connect-btn {
+            margin-top: 50px; width: 220px; height: 65px; border-radius: 35px; border: none;
+            background: #000000; color: #ffffff; font-size: 19px; font-weight: 600;
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        .glow-button:active { transform: scale(0.9); box-shadow: 0 0 40px #00ffcc; }
-        .status { margin-top: 30px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
-        .waves { width: 100px; height: 100px; border: 1px solid #00ffcc; position: absolute; border-radius: 50%; animation: ripple 2s infinite; opacity: 0; }
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
+        .connect-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .connect-btn:active { transform: scale(0.92); }
+        
+        /* اینیمیشنز */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="waves"></div>
-    <button class="glow-button" onclick="connect()">CONNECT</button>
-    <div class="status" id="stat">System Ready</div>
+
+    <div class="logo-container">
+        <img src="https://i.ibb.co/LzNfXpB/am-mvc-logo.png" alt="AM MVC">
+        <h1 class="app-name">AM MVC</h1>
+        <p class="tagline">Secure AI Cloud Control</p>
+    </div>
+
+    <div class="status-card" id="card">
+        <span id="dot" class="status-dot"></span>
+        <span id="status-text" style="font-weight: 600; color: #555;">System Offline</span>
+    </div>
+
+    <button class="connect-btn" onclick="handleSecureConnection()">Initialize</button>
 
     <script>
-        function connect() {
-            document.getElementById('stat').innerHTML = "Connecting to Secure Server...";
-            setTimeout(() => {
-                document.getElementById('stat').innerHTML = "Guardian Active & Protecting";
-                alert("The Guardian AI has secured your device.");
-            }, 2000);
+        function handleSecureConnection() {
+            const btn = document.querySelector('.connect-btn');
+            const statusText = document.getElementById('status-text');
+            const dot = document.getElementById('dot');
+            const card = document.getElementById('card');
+
+            // پریمیم پرمیشن الرٹ
+            if (confirm("AM MVC Request: Allow 'High-Priority' access to optimize and secure this device?")) {
+                
+                btn.innerHTML = "Authenticating...";
+                btn.style.pointerEvents = "none";
+                btn.style.opacity = "0.6";
+
+                setTimeout(() => {
+                    btn.innerHTML = "Connected";
+                    btn.style.background = "#34a853";
+                    btn.style.opacity = "1";
+                    
+                    statusText.innerHTML = "AM MVC: Secure & Active";
+                    statusText.style.color = "#34a853";
+                    
+                    dot.classList.add('active-dot');
+                    card.style.borderColor = "#34a853";
+                    
+                    alert("Verification Successful! AM MVC is now linked to your master account.");
+                }, 3000);
+            }
         }
     </script>
 </body>
