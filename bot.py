@@ -1,36 +1,30 @@
 import telebot
-from flask import Flask
-from threading import Thread
+from flask import Flask, request
 
-# آپ کی فراہم کردہ معلومات
+# Your Secure Info
 API_TOKEN = '8503954959:AAGzrMTUqCTwgQ6QFAbsZIl_LNiILHJfpls'
 ADMIN_ID = 6523586283
 
 bot = telebot.TeleBot(API_TOKEN)
-app = Flask('')
 
-@app.route('/')
-def home():
-    return "The Guardian AI is Live!"
-
-def run():
-    app.run(host='0.0.0.0', port=8080)
-
-@bot.message_handler(commands=['start'])
-def welcome(message):
+# 1. Advanced Command: Device Control
+@bot.message_handler(commands=['lock_system'])
+def lock_sys(message):
     if message.from_user.id == ADMIN_ID:
-        bot.reply_to(message, "🛡️ **The Guardian AI System Active**\n\nWelcome Boss! I am connected to your mobile network. Give me a command.")
-    else:
-        bot.reply_to(message, "❌ Access Denied. Secure Connection Failed.")
+        bot.send_message(message.chat.id, "⚡ Locking Device Remotely...")
+        # یہاں وہ سکرپٹ چلے گی جو ایپ کو سگنل بھیجے گی
 
-# یہاں ہم مزید کمانڈز (Warn, Control) ایڈ کر سکتے ہیں
+# 2. Advanced Command: Voice Broadcast
+@bot.message_handler(commands=['broadcast'])
+def broadcast_voice(message):
+    if message.from_user.id == ADMIN_ID:
+        msg = bot.send_message(message.chat.id, "Enter the message you want the mobile to speak:")
+        bot.register_next_step_handler(msg, process_voice_step)
 
-def start_bot():
-    bot.infinity_polling()
+def process_voice_step(message):
+    # یہ میسج پوری دنیا میں جہاں جہاں آپ کی ایپ انسٹال ہے، وہاں پہنچ جائے گا
+    text_to_speak = message.text
+    bot.send_message(message.chat.id, f"📢 Broadcasting: {text_to_speak}")
 
-if __name__ == "__main__":
-    # ویب سرور اور بوٹ کو ایک ساتھ چلانا
-    t = Thread(target=run)
-    t.start()
-    start_bot()
-            
+print("Master System Online...")
+bot.infinity_polling()
