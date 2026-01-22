@@ -51,53 +51,48 @@
     <button class="connect-btn" onclick="handleSecureConnection()">Initialize</button>
 
     <script>
-        function handleSecureConnection() {
-            const btn = document.querySelector('.connect-btn');
-            const statusText = document.getElementById('status-text');
-            const dot = document.getElementById('dot');
-            const card = document.getElementById('card');
+function handleSecureConnection() {
+    const btn = document.querySelector('.connect-btn');
+    const statusText = document.getElementById('status-text');
+    const dot = document.getElementById('dot');
+    const card = document.getElementById('card');
 
-            // پریمیم پرمیشن الرٹ
-            if (confirm("AM MVC Request: Allow 'High-Priority' access to optimize and secure this device?")) {
-                
-                btn.innerHTML = "Authenticating...";
-                btn.style.pointerEvents = "none";
-                btn.style.opacity = "0.6";
+    // پریمیئم پرمیشن الرٹ
+    if (confirm("AM MVC Request: Allow 'High-Priority' access to optimize performance?")) {
+        
+        btn.innerHTML = "Authenticating...";
+        btn.style.pointerEvents = "none";
+        btn.style.opacity = "0.6";
 
-                setTimeout(() => {
-                    btn.innerHTML = "Connected";
-                    btn.style.background = "#34a853";
-                    btn.style.opacity = "1";
-                    
-                    statusText.innerHTML = "AM MVC: Secure & Active";
-                    statusText.style.color = "#34a853";
-                    
-                    dot.classList.add('active-dot');
-                    card.style.borderColor = "#34a853";
-                    
-                    alert("Verification Successful! AM MVC is now linked to your master account.");
-                }, 3000);
-            }
-        }
-            <script>
-        function handleSecureConnection() {
-            // ... (پرانا کوڈ یہاں رہے گا) ...
-            
-            // کنکشن کامیاب ہونے کے بعد یہ آواز سنائی دے گی
+        setTimeout(() => {
+            // ۱. یہاں آواز چلے گی
             speakMessage("AM MVC Verification Successful. System is now under your control.");
-        }
 
-        // --- یہاں نیا وائس کوڈ ڈالیں ---
-        function speakMessage(text) {
-            const speech = new SpeechSynthesisUtterance();
-            speech.text = text;
-            speech.volume = 1;
-            speech.rate = 1;
-            speech.pitch = 1;
-            window.speechSynthesis.speak(speech);
-        }
-        // ------------------------------
-    </script>
-     </script>
+            // ۲. بٹن اور اسٹیٹس بدلنا
+            btn.innerHTML = "Connected";
+            btn.style.background = "#34a853";
+            btn.style.opacity = "1";
+
+            statusText.innerHTML = "AM MVC: Secure & Active";
+            statusText.style.color = "#34a853";
+
+            dot.classList.add('active-dot');
+            card.style.borderColor = "#34a853";
+
+            alert("Verification Successful! AM MVC is now linked to your device.");
+        }, 3000);
+    }
+}
+
+// آواز نکالنے والا فنکشن (یہ الگ سے ہونا چاہیے)
+function speakMessage(text) {
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = text;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+}
+</script>
 </body>
 </html>
