@@ -3,112 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AM MVC - Next Gen Control</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #1f1f1f; overflow: hidden; }
-        
-        /* لوگو اینیمیشن */
-        .logo-container { text-align: center; margin-bottom: 50px; animation: fadeIn 1.5s ease; }
-        .logo-container img { width: 120px; height: 120px; border-radius: 28px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; }
-        .app-name { font-size: 32px; font-weight: 700; margin-top: 20px; letter-spacing: -1.5px; color: #000; }
-        .tagline { color: #757575; font-size: 14px; font-weight: 400; margin-top: 5px; }
-        
-        /* اسٹیٹس کارڈ */
-        .status-card { width: 85%; max-width: 350px; background: #fbfbfb; border-radius: 24px; padding: 25px; text-align: center; border: 1px solid #f0f0f0; transition: 0.5s; }
-        .status-dot { height: 12px; width: 12px; background-color: #d1d1d1; border-radius: 50%; display: inline-block; margin-right: 8px; }
-        .active-dot { background-color: #34a853; box-shadow: 0 0 15px rgba(52, 168, 83, 0.5); animation: pulse 2s infinite; }
-
-        /* بٹن ڈیزائن */
-        .connect-btn {
-            margin-top: 50px; width: 220px; height: 65px; border-radius: 35px; border: none;
-            background: #000000; color: #ffffff; font-size: 19px; font-weight: 600;
-            cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        .connect-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .connect-btn:active { transform: scale(0.92); }
-        
-        /* اینیمیشنز */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-    </style>
+    <title>AM MVC | Universal Assistant</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="logo-container">
-        <img src="https://i.ibb.co/pr9KLhjZ/1769022680962.png" alt="AM MVC">
-        <h1 class="app-name">AM MVC</h1>
-        <p class="tagline">Secure AI Cloud Control</p>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; margin-bottom:20px;">&times;</a>
+        <p style="padding:10px 30px; font-size:12px; color:#555; text-transform:uppercase;">Select Language</p>
+        <a href="#" onclick="setLang('en')">🌐 English (Global)</a>
+        <a href="#" onclick="setLang('ur')">🇵🇰 Urdu (اردو)</a>
+        <a href="#" onclick="setLang('hi')">🇮🇳 Hindi (हिंदी)</a>
+        <hr style="opacity:0.1; margin:20px 0;">
+        <a href="#" onclick="window.location.reload()">🔄 Refresh System</a>
+        <a href="mailto:gollomollo39@gmail.com">📩 Help Center</a>
+        <a href="#" style="color:#ff4444;" onclick="alert('Account feature coming soon!')">🔐 Login/Signup</a>
     </div>
 
-    <div class="status-card" id="card">
-        <span id="dot" class="status-dot"></span>
-        <span id="status-text" style="font-weight: 600; color: #555;">System Offline</span>
+    <div id="main">
+        <div class="header">
+            <button class="menu-btn" onclick="openNav()">☰</button>
+            <span style="font-weight:bold; letter-spacing:2px;">AM MVC PRO</span>
+            <div style="width:24px;"></div> </div>
+
+        <div class="container">
+            <div style="margin-top:20px;">
+                <img src="https://i.ibb.co/pr9KLhjZ/1769022680962.png" width="100" style="filter: drop-shadow(0 0 10px rgba(0,198,255,0.5));">
+            </div>
+
+            <div class="glass-card">
+                <p id="status-line">
+                    <span id="dot" class="status-dot active-dot"></span>
+                    <span id="status-text" style="color:#aaa;">System: Active (Global)</span>
+                </p>
+                <h2 id="ai-response" style="margin-top:20px; font-weight:400; font-size:1.4rem;">How can I help you, Boss?</h2>
+                
+                <div class="ai-wave" id="wave" style="display:none; margin-top:20px;">
+                    <div class="wave-bar"></div><div class="wave-bar" style="animation-delay:0.2s"></div>
+                    <div class="wave-bar" style="animation-delay:0.4s"></div><div class="wave-bar" style="animation-delay:0.2s"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="mic-btn" id="micBtn" onclick="startGlobalAction()">
+                <img src="https://cdn-icons-png.flaticon.com/512/709/709682.png" width="35" style="filter: invert(1);">
+            </div>
+            <p id="instruction" style="margin-top:15px; font-size:14px; color:#666;">Hold or Tap to Command</p>
+        </div>
     </div>
 
-    <button class="connect-btn" onclick="handleSecureConnection()">Initialize</button>
-
-    <script>
-// آف لائن میسج چیک کرنے کا فنکشن
-function checkConnection() {
-    let offlineDiv = document.getElementById('offline-notice');
-    if (!navigator.onLine) {
-        if (!offlineDiv) {
-            offlineDiv = document.createElement('div');
-            offlineDiv.id = 'offline-notice';
-            offlineDiv.innerHTML = `
-                <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:sans-serif; padding:20px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2748/2748614.png" width="80" style="margin-bottom:20px;">
-                    <h2 style="color:#000;">You are currently Offline</h2>
-                    <p style="color:#555;">Plz online for Control your Device On AM MVC</p>
-                    <button onclick="window.location.reload()" style="margin-top:20px; padding:12px 25px; background:black; color:white; border-radius:30px; border:none; cursor:pointer;">Retry</button>
-                </div>`;
-            document.body.appendChild(offlineDiv);
-        }
-    } else {
-        if (offlineDiv) offlineDiv.remove();
-    }
-}
-
-window.addEventListener('online', checkConnection);
-window.addEventListener('offline', checkConnection);
-checkConnection();
-
-function handleSecureConnection() {
-    const btn = document.querySelector('.connect-btn');
-    const statusText = document.getElementById('status-text');
-    const dot = document.getElementById('dot');
-    const card = document.getElementById('card');
-
-    if (confirm("AM MVC Request: Allow 'High-Priority' access?")) {
-        btn.innerHTML = "Authenticating...";
-        btn.style.pointerEvents = "none";
-        btn.style.opacity = "0.6";
-
-        setTimeout(() => {
-            speakMessage("AM MVC Verification Successful. System is now under your control.");
-            btn.innerHTML = "Connected";
-            btn.style.background = "#34a853";
-            btn.style.opacity = "1";
-            statusText.innerHTML = "AM MVC: Secure & Active";
-            statusText.style.color = "#34a853";
-            dot.classList.add('active-dot');
-            card.style.borderColor = "#34a853";
-            alert("Verification Successful!");
-        }, 3000);
-    }
-}
-
-function speakMessage(text) {
-    const speech = new SpeechSynthesisUtterance();
-    speech.text = text;
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 1;
-    window.speechSynthesis.speak(speech);
-}
-</script>
+    <script src="script.js"></script>
 </body>
-</html>
+    </html>
+                        
