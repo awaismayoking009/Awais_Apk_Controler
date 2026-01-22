@@ -79,6 +79,25 @@
                 }, 3000);
             }
         }
+            <script>
+        function handleSecureConnection() {
+            // ... (پرانا کوڈ یہاں رہے گا) ...
+            
+            // کنکشن کامیاب ہونے کے بعد یہ آواز سنائی دے گی
+            speakMessage("AM MVC Verification Successful. System is now under your control.");
+        }
+
+        // --- یہاں نیا وائس کوڈ ڈالیں ---
+        function speakMessage(text) {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+            window.speechSynthesis.speak(speech);
+        }
+        // ------------------------------
     </script>
+     </script>
 </body>
 </html>
