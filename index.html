@@ -51,40 +51,56 @@
     <button class="connect-btn" onclick="handleSecureConnection()">Initialize</button>
 
     <script>
+// آف لائن میسج چیک کرنے کا فنکشن
+function checkConnection() {
+    let offlineDiv = document.getElementById('offline-notice');
+    if (!navigator.onLine) {
+        if (!offlineDiv) {
+            offlineDiv = document.createElement('div');
+            offlineDiv.id = 'offline-notice';
+            offlineDiv.innerHTML = `
+                <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:sans-serif; padding:20px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2748/2748614.png" width="80" style="margin-bottom:20px;">
+                    <h2 style="color:#000;">You are currently Offline</h2>
+                    <p style="color:#555;">Plz online for Control your Device On AM MVC</p>
+                    <button onclick="window.location.reload()" style="margin-top:20px; padding:12px 25px; background:black; color:white; border-radius:30px; border:none; cursor:pointer;">Retry</button>
+                </div>`;
+            document.body.appendChild(offlineDiv);
+        }
+    } else {
+        if (offlineDiv) offlineDiv.remove();
+    }
+}
+
+window.addEventListener('online', checkConnection);
+window.addEventListener('offline', checkConnection);
+checkConnection();
+
 function handleSecureConnection() {
     const btn = document.querySelector('.connect-btn');
     const statusText = document.getElementById('status-text');
     const dot = document.getElementById('dot');
     const card = document.getElementById('card');
 
-    // پریمیئم پرمیشن الرٹ
-    if (confirm("AM MVC Request: Allow 'High-Priority' access to optimize performance?")) {
-        
+    if (confirm("AM MVC Request: Allow 'High-Priority' access?")) {
         btn.innerHTML = "Authenticating...";
         btn.style.pointerEvents = "none";
         btn.style.opacity = "0.6";
 
         setTimeout(() => {
-            // ۱. یہاں آواز چلے گی
             speakMessage("AM MVC Verification Successful. System is now under your control.");
-
-            // ۲. بٹن اور اسٹیٹس بدلنا
             btn.innerHTML = "Connected";
             btn.style.background = "#34a853";
             btn.style.opacity = "1";
-
             statusText.innerHTML = "AM MVC: Secure & Active";
             statusText.style.color = "#34a853";
-
             dot.classList.add('active-dot');
             card.style.borderColor = "#34a853";
-
-            alert("Verification Successful! AM MVC is now linked to your device.");
+            alert("Verification Successful!");
         }, 3000);
     }
 }
 
-// آواز نکالنے والا فنکشن (یہ الگ سے ہونا چاہیے)
 function speakMessage(text) {
     const speech = new SpeechSynthesisUtterance();
     speech.text = text;
